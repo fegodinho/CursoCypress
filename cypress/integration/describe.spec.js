@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 
-it.skip('An external test...', () => {
+it('An external test...', () => {
 
 })
 
@@ -12,7 +12,7 @@ describe('Should group tests...', () =>{
         })
     })
 
-    describe.skip('Should group more specific tests 2...', () => {
+    describe('Should group more specific tests 2...', () => {
         it('A specific test 2...', () =>{
 
         })
