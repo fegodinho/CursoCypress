@@ -28,4 +28,26 @@ describe('Working with basic elements', () => {
         cy.contains('Voltar').click()
         cy.get('#resultado').should('have.text', 'Voltou!')
     })
+
+    it.only('Text Fields', () =>{
+        cy.get('#formNome')
+            .type('Cypress Test')
+            .should('have.value', 'Cypress Test')
+
+        cy.get('#elementosForm\\:sugestoes')
+            .type('text area')
+            .should('have.value', 'text area')
+
+        cy.get('#tabelaUsuarios > :nth-child(2) > :nth-child(1) > :nth-child(6) > input')
+            .type('???')
+
+        cy.get('[data-cy=dataSobrenome]')
+            .type('Teste12345{backspace}{backspace}')
+            .should('have.value', 'Teste123')
+
+        cy.get('#elementosForm\\:sugestoes')
+            .clear()
+            .type('Erro{selectall}acerto')
+            .should('have.value', 'acerto')
+    })
 })
