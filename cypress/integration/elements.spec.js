@@ -29,7 +29,7 @@ describe('Working with basic elements', () => {
         cy.get('#resultado').should('have.text', 'Voltou!')
     })
 
-    it.only('Text Fields', () =>{
+    it('Text Fields', () =>{
         cy.get('#formNome')
             .type('Cypress Test')
             .should('have.value', 'Cypress Test')
@@ -49,5 +49,15 @@ describe('Working with basic elements', () => {
             .clear()
             .type('Erro{selectall}acerto')
             .should('have.value', 'acerto')
+    })
+
+    it('RadioButton', () =>{
+        cy.get('#formSexoFem')
+            .click()
+            .should('be.checked')
+        
+        cy.get('#formSexoMasc').should('not.be.checked')
+
+        cy.get("[name='formSexo']").should('have.length', 2)
     })
 })
