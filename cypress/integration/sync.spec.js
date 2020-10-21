@@ -18,5 +18,13 @@ describe('Esperas...', () => {
         cy.get('#novoCampo').should('exist')
         cy.get('#novoCampo').type('funciona')
     })
+
+    it.only('Deve fazer retries...', () => {
+        cy.get('#buttonDelay').click()
+        cy.get('#novoCampo').should('not.exist')
+        cy.get('#novoCampo') //não encadear assertivas opostas, separe-as:  por isso o should not exist está acima
+            .should('exist')
+            .type('funciona')
+    })
     
 })
