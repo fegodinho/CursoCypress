@@ -68,5 +68,21 @@ describe('Esperas...', () => {
             //o comando anterior CLick nao é re-executado quando uma assertiva falha
             .should('have.value', '111')
     })
+
+    it.only('Should vs Then...', () => {
+        cy.get('#buttonListDOM').click()
+        //o then espera e depois executa
+        cy.get('#lista li span',).then($el => {
+            console.log($el)
+            expect($el).to.have.length(1)
+        })
+
+        //o should é executado várias vezes até ser satisfeito
+        cy.get('#lista li span',).then($el => {
+            console.log($el)
+            expect($el).to.have.length(1)
+        })
+            
+    })
     
 })
