@@ -41,5 +41,24 @@ describe('Esperas...', () => {
         cy.get('#lista li span')
             .should('contain', 'Item 2')
     })
+
+    it.only('uso to timeout...', () => {
+
+        // cy.get('#buttonDelay').click()
+        // //timeout de 1s, o default do cypress é de 4s
+        // cy.get('#novoCampo', {timeout: 1000}).should('exist')
+
+        // cy.get('#buttonListDOM').click()
+        // //segura o fluxo por 5s, sempre
+        // cy.wait(5000)
+        // cy.get('#lista li span')
+        //     .should('contain', 'Item 2')
+
+        cy.get('#buttonListDOM').click()
+        cy.get('#lista li span',)
+            .should('have.length', 1)
+        cy.get('#lista li span',)
+            .should('have.length', 2)
+    })
     
 })
