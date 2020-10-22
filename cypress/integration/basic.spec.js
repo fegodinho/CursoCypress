@@ -18,18 +18,33 @@ describe('Cypress basics', () => {
             .should('be.equal', 'Campo de Treinamento')
             .and('contain', 'Campo')
 
+        //Imprimir titulo do console
         cy.title().then(title => {
             console.log(title)
         })
-
         //OR
-
         cy.title().should(title => {
             console.log(title)
         })
+
+        let syncTitle
+
+        //Escrever o log em um capo de texto
+        cy.title().then(title => {
+            cy.get('#formNome').type(title)
+            syncTitle = title
+        })
+
+        cy.get('[data-cy=dataSobrenome]').then($el => {
+            $el.val(syncTitle)
+        })
+
+        cy.get('#elementosForm\\:sugestoes').then($el => {
+            cy.wrap($el).type(syncTitle)
+        })
     })
 
-    it('Should find and interact with an elemente', () => {
+    it('Should find and interact with an element', () => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
         cy.get('#buttonSimple')
             .click()
