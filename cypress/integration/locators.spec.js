@@ -25,8 +25,12 @@ describe('Working with basic elements', () => {
     })
 
     it('Using Xpath...', () => {
-        cy.xpath('//input')
-        
+        cy.xpath("//input[contains(@onclick, 'Francisco')]")
+        cy.xpath("//table[@id='tabelaUsuarios']//td[contains(., 'Francisco')]/..//input[@type='text']")
+        cy.xpath("(//table[@id='tabelaUsuarios']//td[contains(., 'Doutorado')])[2]/..//input[@type='text']")
+        cy.xpath("(//table[@id='tabelaUsuarios']//td[contains(., 'Doutorado')])[2]/..//input[@type='checkbox']")
+        cy.xpath("//*[@data-test='data2']") 
+        cy.xpath("//td[contains(., 'Usuario A')]/following-sibling::td[contains(., 'Mestrado')]/..//input[@type='text']").type('funciona')
     })
 
 })
