@@ -12,14 +12,14 @@ describe('Should test at functional level...', () => {
     })
 
     beforeEach(() => {
-        //cy.get(loc.MENU.HOME).click()
+        cy.resetRest()
     })
 
     it('Should create an account...', () => {
         cy.request({
             method: 'POST',
             headers: {Authorization: `JWT ${token}`},
-            url: 'https://barrigarest.wcaquino.me/contas',
+            url: '/contas',
             body: {
                     nome: 'Conta via rest'
                 }
