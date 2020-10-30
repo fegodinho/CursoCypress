@@ -71,3 +71,18 @@ Cypress.Commands.add('resetRest', () =>{
         }).its('status').should('be.equal', 200)
     })    
 })
+
+Cypress.Commands.add('getContaByName', nome => {
+    cy.getToken('fegodinho@godinho', '123456').then(token =>{
+        cy.request({
+            url: '/contas',
+            method: 'GET',
+            headers: {Authorization: `JWT ${token}`},
+            qs: {
+                nome: nome
+            }
+        }).then(res => {
+            return res.body[0].id
+        })
+    })
+})
