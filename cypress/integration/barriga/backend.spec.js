@@ -32,7 +32,7 @@ describe('Should test at functional level...', () => {
         })
     })
 
-    it.only('Should update an account...', () => {
+    it('Should update an account...', () => {
 
         cy.request({
             url: '/contas',
@@ -55,8 +55,21 @@ describe('Should test at functional level...', () => {
         cy.get('@response').its('status').should('be.equal', 200)
     })
 
-    it('Should not create and account with same name...', () => {
+    it.only('Should not create and account with same name...', () => {
+        cy.request({
+            method: 'POST',
+            headers: {Authorization: `JWT ${token}`},
+            url: '/contas',
+            body: {
+                    nome: 'Conta mesmo nome'
+                },
+            failOnStatusCode: false
+            }).as('response')
         
+        cy.get('@response').then(res => {
+            expect(res.status).to.be.equal(400)
+            expect(res.body.error).to.be.equal('Já existe uma conta com esse nome!')
+        })       
     })
 
     it('Should create a transaction...', () => {
