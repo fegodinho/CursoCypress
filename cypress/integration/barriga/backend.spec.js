@@ -1,14 +1,14 @@
 /// <reference types="cypress"/>
 
 describe('Should test at api level...', () => {
-    let token
+    //let token
 
     //Runs once before all tests
     before(() => {
         cy.getToken('fegodinho@godinho', '123456')
-            .then(tkn => {
-                token = tkn
-            })
+            // .then(tkn => {
+            //     token = tkn
+            // })
     })
 
     beforeEach(() => {
@@ -18,7 +18,7 @@ describe('Should test at api level...', () => {
     it('Should create an account...', () => {
         cy.request({
             method: 'POST',
-            headers: {Authorization: `JWT ${token}`},
+            //headers: {Authorization: `JWT ${token}`},
             url: '/contas',
             body: {
                     nome: 'Conta via rest'
@@ -38,7 +38,7 @@ describe('Should test at api level...', () => {
                 cy.request({
                     url: `/contas/${contaId}`,
                     method: 'PUT',
-                    headers: {Authorization: `JWT ${token}`},
+                    //headers: {Authorization: `JWT ${token}`},
                     body: {
                         nome: 'conta alterada via rest'
                     }
@@ -51,7 +51,7 @@ describe('Should test at api level...', () => {
     it('Should not create and account with same name...', () => {
         cy.request({
             method: 'POST',
-            headers: {Authorization: `JWT ${token}`},
+            //headers: {Authorization: `JWT ${token}`},
             url: '/contas',
             body: {
                     nome: 'Conta mesmo nome'
@@ -71,7 +71,7 @@ describe('Should test at api level...', () => {
                 cy.request({
                     method: 'POST',
                     url: '/transacoes',
-                    headers: {Authorization: `JWT ${token}`},
+                    //headers: {Authorization: `JWT ${token}`},
                     body: {
                         conta_id: contaId,
                         data_pagamento: Cypress.moment().add({days: 1}).format('DD/MM/YYYY'),
@@ -88,11 +88,11 @@ describe('Should test at api level...', () => {
         cy.get('@response').its('body.id').should('exist')              
     })
 
-    it.only('Should get balance...', () => {
+    it('Should get balance...', () => {
         cy.request({
             method: 'GET',
             url: '/saldo',
-            headers: {Authorization: `JWT ${token}`}
+            //headers: {Authorization: `JWT ${token}`}
         }).then(res => {
             let saldoConta = null
             res.body.forEach(c => {
@@ -105,7 +105,7 @@ describe('Should test at api level...', () => {
         cy.request({
             method: 'GET',
             url: '/transacoes',
-            headers: {Authorization: `JWT ${token}`},
+            //headers: {Authorization: `JWT ${token}`},
             qs: {
                 descricao: 'Movimentacao 1, calculo saldo'
             }
@@ -113,7 +113,7 @@ describe('Should test at api level...', () => {
             cy.request({
                 url: `/transacoes/${res.body[0].id}`,
                 method: 'PUT',
-                headers: {Authorization: `JWT ${token}`},
+                //headers: {Authorization: `JWT ${token}`},
                 body: {
                     conta_id: res.body[0].conta_id,
                     data_pagamento: Cypress.moment(res.body[0].data_pagamento).format('DD/MM/YYYY'),
@@ -129,7 +129,7 @@ describe('Should test at api level...', () => {
         cy.request({
             method: 'GET',
             url: '/saldo',
-            headers: {Authorization: `JWT ${token}`}
+            //headers: {Authorization: `JWT ${token}`}
         }).then(res => {
             let saldoConta = null
             res.body.forEach(c => {
@@ -140,11 +140,11 @@ describe('Should test at api level...', () => {
         })
     })
 
-    it.only('Should remove a transaction...', () => {
+    it('Should remove a transaction...', () => {
         cy.request({
             method: 'GET',
             url: '/transacoes',
-            headers: {Authorization: `JWT ${token}`},
+            //headers: {Authorization: `JWT ${token}`},
             qs: {
                 descricao: 'Movimentacao para exclusao'
             }
@@ -152,7 +152,7 @@ describe('Should test at api level...', () => {
             cy.request({
                 method: 'DELETE',
                 url: `/transacoes/${res.body[0].id}`,
-                headers: {Authorization: `JWT ${token}`}
+                //headers: {Authorization: `JWT ${token}`}
             }).its('status').should('be.equal', 204)
         })        
     })
