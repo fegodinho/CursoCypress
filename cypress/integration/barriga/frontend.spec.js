@@ -36,16 +36,44 @@ describe('Should test at functional level...', () => {
             }]
         }).as('saldo')
 
-        cy.login('fegodinho@godinho', 'XXXXXX')
-        cy.resetApp()
+        cy.login('fegodinho@godinho', 'XXXXXX')        
     })
 
     beforeEach(() => {
         cy.get(loc.MENU.HOME).click()
+        // cy.resetApp()
     })
 
     it.only('Should create an account...', () => {
+        cy.route({
+            method: 'GET',
+            url: '/contas',
+            response: [
+                {id: 1, nome: 'Carteira', visivel: true, usuario_id: 1},
+                {id: 2, nome: 'Banco', visivel: true, usuario_id: 1}
+            ]            
+        }).as('contas')
+
+        cy.route({
+            method: 'POST',
+            url: '/contas',
+            response: {
+                id: 3, nome: 'Conta de teste', visivel: true, usuario_id: 1
+            }                     
+        }).as('inserirConta')
+
         cy.acessarMenuConta()
+
+        cy.route({
+            method: 'GET',
+            url: '/contas',
+            response: [
+                {id: 1, nome: 'Carteira', visivel: true, usuario_id: 1},
+                {id: 2, nome: 'Banco', visivel: true, usuario_id: 1},
+                {id: 3, nome: 'Conta de teste', visivel: true, usuario_id: 1}
+            ]            
+        }).as('contasSaved')
+
         cy.inserirConta('Conta de teste')
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
     })
