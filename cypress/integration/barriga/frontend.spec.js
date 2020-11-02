@@ -5,6 +5,10 @@ import '../../support/commands.Contas'
 
 describe('Should test at functional level...', () => {
     //Runs once before all tests
+    after(() => {
+        cy.clearLocalStorage()
+    })
+
     before(() => {
         cy.server()
         cy.route({
@@ -40,7 +44,7 @@ describe('Should test at functional level...', () => {
         cy.get(loc.MENU.HOME).click()
     })
 
-    it('Should create an account...', () => {
+    it.only('Should create an account...', () => {
         cy.acessarMenuConta()
         cy.inserirConta('Conta de teste')
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
