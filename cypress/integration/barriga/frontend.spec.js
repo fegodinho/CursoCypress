@@ -44,7 +44,7 @@ describe('Should test at functional level...', () => {
         // cy.resetApp()
     })
 
-    it.only('Should create an account...', () => {
+    it('Should create an account...', () => {
         cy.route({
             method: 'GET',
             url: '/contas',
@@ -78,9 +78,26 @@ describe('Should test at functional level...', () => {
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
     })
 
-    it('Should update an account...', () => {
+    it.only('Should update an account...', () => {
+        cy.route({
+            method: 'GET',
+            url: '/contas',
+            response: [
+                {id: 1, nome: 'Carteira', visivel: true, usuario_id: 1},
+                {id: 2, nome: 'Banco', visivel: true, usuario_id: 1}
+            ]            
+        }).as('contas')
+
+        cy.route({
+            method: 'PUT',
+            url: '/contas/**', //** para aceitar qualquer ID
+            response: [
+                {id: 1, nome: 'Conta alterada', visivel: true, usuario_id: 1}
+            ]            
+        }).as('contaAlterada')
+
         cy.acessarMenuConta()
-        cy.xpath(loc.CONTAS.FN_XP_BTN_ATERAR('Conta para alterar')).click()
+        cy.xpath(loc.CONTAS.FN_XP_BTN_ATERAR('Carteira')).click()
         cy.get(loc.CONTAS.NOME)
             .clear()
             .type('Conta alterada')
