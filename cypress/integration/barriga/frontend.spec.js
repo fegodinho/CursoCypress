@@ -83,15 +83,7 @@ describe('Should test at frontend level...', () => {
         cy.route({
             method: 'GET',
             url: '/extrato/**',
-            response: [
-                {"conta":"Conta para movimentacoes","id":289755,"descricao":"Movimentacao para exclusao","envolvido":"AAA","observacao":null,"tipo":"DESP","data_transacao":"2020-11-07T03:00:00.000Z","data_pagamento":"2020-11-07T03:00:00.000Z","valor":"-1500.00","status":true,"conta_id":319153,"usuario_id":10719,"transferencia_id":null,"parcelamento_id":null},
-                {"conta":"Conta com movimentacao","id":289756,"descricao":"Movimentacao de conta","envolvido":"BBB","observacao":null,"tipo":"DESP","data_transacao":"2020-11-07T03:00:00.000Z","data_pagamento":"2020-11-07T03:00:00.000Z","valor":"-1500.00","status":true,"conta_id":319154,"usuario_id":10719,"transferencia_id":null,"parcelamento_id":null},
-                {"conta":"Conta para saldo","id":289757,"descricao":"Movimentacao 1, calculo saldo","envolvido":"CCC","observacao":null,"tipo":"REC","data_transacao":"2020-11-07T03:00:00.000Z","data_pagamento":"2020-11-07T03:00:00.000Z","valor":"3500.00","status":false,"conta_id":319155,"usuario_id":10719,"transferencia_id":null,"parcelamento_id":null},
-                {"conta":"Conta para saldo","id":289758,"descricao":"Movimentacao 2, calculo saldo","envolvido":"DDD","observacao":null,"tipo":"DESP","data_transacao":"2020-11-07T03:00:00.000Z","data_pagamento":"2020-11-07T03:00:00.000Z","valor":"-1000.00","status":true,"conta_id":319155,"usuario_id":10719,"transferencia_id":null,"parcelamento_id":null},
-                {"conta":"Conta para saldo","id":289759,"descricao":"Movimentacao 3, calculo saldo","envolvido":"EEE","observacao":null,"tipo":"REC","data_transacao":"2020-11-07T03:00:00.000Z","data_pagamento":"2020-11-07T03:00:00.000Z","valor":"1534.00","status":true,"conta_id":319155,"usuario_id":10719,"transferencia_id":null,"parcelamento_id":null},
-                {"conta":"Conta para extrato","id":289760,"descricao":"Movimentacao para extrato","envolvido":"FFF","observacao":null,"tipo":"DESP","data_transacao":"2020-11-07T03:00:00.000Z","data_pagamento":"2020-11-07T03:00:00.000Z","valor":"-220.00","status":true,"conta_id":319156,"usuario_id":10719,"transferencia_id":null,"parcelamento_id":null},
-                {"conta":"Conta para extrato","id":289761,"descricao":"Desc","envolvido":"FFF","observacao":null,"tipo":"DESP","data_transacao":"2020-11-07T03:00:00.000Z","data_pagamento":"2020-11-07T03:00:00.000Z","valor":"123.00","status":true,"conta_id":319156,"usuario_id":10719,"transferencia_id":null,"parcelamento_id":null}
-            ]
+            response: 'fixture:movimentacaoSalva'
         })
         
         cy.get(loc.MENU.MOVIMENTACAO).click()
