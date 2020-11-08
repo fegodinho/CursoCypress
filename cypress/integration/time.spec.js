@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 
-describe('Working with alerts...', () => {
+describe('Working with time...', () => {
     //Runs once before all tests
     before(() => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
