@@ -17,6 +17,22 @@ describe('Should test at frontend level...', () => {
         // cy.resetApp()
     })
 
+    it('Should test responsivess...', () => {
+        cy.get('[data-test=menu-home]').should('exist')
+            .and('be.visible')
+        cy.viewport(500, 700)
+        cy.get('[data-test=menu-home]').should('exist')
+            .and('not.be.visible')
+
+        cy.viewport('iphone-5')
+        cy.get('[data-test=menu-home]').should('exist')
+            .and('not.be.visible')
+
+        cy.viewport('ipad-2')
+        cy.get('[data-test=menu-home]').should('exist')
+            .and('be.visible')    
+    })
+
     it('Should create an account...', () => {    
         cy.route({
             method: 'POST',
@@ -243,7 +259,7 @@ describe('Should test at frontend level...', () => {
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
     })
 
-    it.only('Should test colors...', () => {
+    it('Should test colors...', () => {
         cy.route({
             method: 'GET',
             url: '/extrato/**',
@@ -259,6 +275,6 @@ describe('Should test at frontend level...', () => {
         cy.xpath(loc.EXTRATO.FN_XP_LINHA('Receita pendente')).should('have.class', 'receitaPendente')
         cy.xpath(loc.EXTRATO.FN_XP_LINHA('Despesa paga')).should('have.class', 'despesaPaga')
         cy.xpath(loc.EXTRATO.FN_XP_LINHA('Despesa pendente')).should('have.class', 'despesaPendente')
-    })
+    })   
 
 })
