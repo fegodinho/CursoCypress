@@ -212,7 +212,7 @@ describe('Should test at frontend level...', () => {
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
     })
 
-    it.only('Should validate data to create an account using stub...', () => {  
+    it('Should validate data to create an account using stub...', () => {  
         const reqStub = cy.stub()  
         cy.route({
             method: 'POST',
@@ -241,6 +241,24 @@ describe('Should test at frontend level...', () => {
             expect(reqStub.args[0][0].request.headers).to.have.property('Authorization')
         })
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
+    })
+
+    it.only('Should test colors...', () => {
+        cy.route({
+            method: 'GET',
+            url: '/extrato/**',
+            response: [
+                {"conta":"Conta para movimentacoes","id":289755,"descricao":"Receita paga","envolvido":"AAA","observacao":null,"tipo":"REC","data_transacao":"2020-11-07T03:00:00.000Z","data_pagamento":"2020-11-07T03:00:00.000Z","valor":"-1500.00","status":true,"conta_id":319153,"usuario_id":10719,"transferencia_id":null,"parcelamento_id":null},
+                {"conta":"Conta com movimentacao","id":289756,"descricao":"Receita pendente","envolvido":"BBB","observacao":null,"tipo":"REC","data_transacao":"2020-11-07T03:00:00.000Z","data_pagamento":"2020-11-07T03:00:00.000Z","valor":"-1500.00","status":false,"conta_id":319154,"usuario_id":10719,"transferencia_id":null,"parcelamento_id":null},
+                {"conta":"Conta para saldo","id":289757,"descricao":"Despesa paga","envolvido":"CCC","observacao":null,"tipo":"DESP","data_transacao":"2020-11-07T03:00:00.000Z","data_pagamento":"2020-11-07T03:00:00.000Z","valor":"3500.00","status":true,"conta_id":319155,"usuario_id":10719,"transferencia_id":null,"parcelamento_id":null},
+                {"conta":"Conta para saldo","id":289758,"descricao":"Despesa pendente","envolvido":"DDD","observacao":null,"tipo":"DESP","data_transacao":"2020-11-07T03:00:00.000Z","data_pagamento":"2020-11-07T03:00:00.000Z","valor":"-1000.00","status":false,"conta_id":319155,"usuario_id":10719,"transferencia_id":null,"parcelamento_id":null}
+            ]
+        })
+        cy.get(loc.MENU.EXTRATO).click()
+        cy.xpath(loc.EXTRATO.FN_XP_LINHA('Receita paga')).should('have.class', 'receitaPaga')
+        cy.xpath(loc.EXTRATO.FN_XP_LINHA('Receita pendente')).should('have.class', 'receitaPendente')
+        cy.xpath(loc.EXTRATO.FN_XP_LINHA('Despesa paga')).should('have.class', 'despesaPaga')
+        cy.xpath(loc.EXTRATO.FN_XP_LINHA('Despesa pendente')).should('have.class', 'despesaPendente')
     })
 
 })
